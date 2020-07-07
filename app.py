@@ -1,5 +1,4 @@
-from flask import Flask, url_for, redirect
-from flask import render_template
+from flask import Flask, url_for, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from forms import PostForm
@@ -78,10 +77,11 @@ def create():
 
 @app.route('/delete')
 def delete():
-    db.drop_all()  # drops all the schemas
-    #db.session.query(Posts).delete()  # deletes the contents of the table
+    # db.drop_all()  # drops all the schemas
+    db.session.query(Posts).delete()  # deletes the contents of the table
     db.session.commit()
-    return "everything is gone woops soz"
+    return redirect(url_for('home'))
+    # return "everything is gone woops soz"
 
 
 if __name__ == '__main__':

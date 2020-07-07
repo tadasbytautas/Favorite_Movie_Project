@@ -1,2 +1,2 @@
-# This is Python Flask App
-## how awesome is that!
+# The Favorite Movie Project
+# how awesome is that!

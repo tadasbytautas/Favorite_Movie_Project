@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
 {% block body_content %}
-    <h1>This is Homepage! y</h1>
+    <h1>The Favorite Movie Project</h1>
 
     {% for post in posts %}
         <div>
             <h3>{{ post.title }}</h3>
-            <p><b>First name: </b> {{ post.f_name }}</p>
-            <p><b>Last name: </b> {{ post.l_name }}</p>
+            <p><b>First Name: </b> {{ post.f_name }}</p>
+            <p><b>Last Name: </b> {{ post.l_name }}</p>
             <p>{{ post.content }}</p>
         </div>
     {% endfor %}
