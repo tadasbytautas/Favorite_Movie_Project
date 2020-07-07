@@ -36,4 +36,4 @@ class PostForm(FlaskForm):
         ]
     )
 
-    submit = StringField('Make a Post')
+    submit = SubmitField('Make a Post')
