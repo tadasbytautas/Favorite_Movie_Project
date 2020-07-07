@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
+
 app = Flask(__name__)
 
 
@@ -53,8 +54,8 @@ def about():
 @app.route('/create')
 def create():
     db.create_all()
-    post = Posts(f_name='Tadas', l_name='Vaidotas', title='What the hell', content="blah blah blah")
-    post2 = Posts(f_name='Tadas2', l_name='Vaidotas2', title='What the hell2', content="blah blah blah2")
+    post = Posts(f_name='Tadas', l_name='Bytautas', title='Mr', content="whatevs")
+    post2 = Posts(f_name='Marija', l_name='SuperPuper', title='Mrs', content="blah")
     db.session.add(post)
     db.session.add(post2)
     db.session.commit()
