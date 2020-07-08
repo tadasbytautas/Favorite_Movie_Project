@@ -3,7 +3,7 @@ from os import environ
 from flask import Flask
 from flask import render_template, redirect, url_for, request
 from flask_bcrypt import bcrypt, Bcrypt
-from flask_login import LoginManager
+from flask_login import LoginManager, UserMixin
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from wtforms import ValidationError
@@ -50,7 +50,7 @@ class Posts(db.Model):
 def load_user(id):
     return Users.query.get(int(id))
 
-class Users(db.Model):
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(500), nullable=False, unique=True)
     password = db.Column(db.String(500), nullable=False)
@@ -116,7 +116,7 @@ def login():
         user=Users.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            next_page = request.args.get('add')
+            next_page = request.args.get('next')
             if next_page:
                 return redirect(next_page)
             else:
