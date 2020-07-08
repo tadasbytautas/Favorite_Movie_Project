@@ -50,20 +50,6 @@ class Users(db.Model):
             ['UserID: ', str(self.id), '\r\n', 'Email: ', self.email]
         )
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hash_pw = bcrypt.generate_password_hash(form.password.data)
-
-        user = Users(email=form.email.data, password=hash_pw)
-
-        db.session.add(user)
-        db.session.commit()
-
-        return redirect(url_for('post'))
-    return render_template('register.html', title='Register', form=form)
-
 def validate_email(self, email):
     user = Users.query.filter_by(email=email.data).first()
 
@@ -94,6 +80,20 @@ def add():
         return redirect(url_for('home'))
     else:
         return render_template('post.html', title='Add a post', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hash_pw = bcrypt.generate_password_hash(form.password.data)
+
+        user = Users(email=form.email.data, password=hash_pw)
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('post'))
+    return render_template('register.html', title='Register', form=form)
 
 @app.route('/create')
 def create():
