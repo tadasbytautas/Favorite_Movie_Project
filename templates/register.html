@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block body_content %}
+    <h1>Register Page</h1>
+    <p>Need an account? Sign up</p>
+    <div class='form'>
+        <form method='POST' action=''>
+            {{ form.hidden_tag() }}
+            <div class='form_group'>
+                {{ form.email.label }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class='error'>
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <!--Password and Check Password fields-->
+            <br>
+            <div class='form_group'>
+                {{ form.submit }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

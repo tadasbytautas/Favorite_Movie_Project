@@ -1,10 +1,14 @@
-from flask import Flask, url_for, redirect, render_template
-from flask_sqlalchemy import SQLAlchemy
 from os import environ
-from forms import PostForm
+
+from flask import url_for, redirect, render_template, Flask
+from flask_bcrypt import bcrypt, Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+from wtforms import ValidationError
+
+from forms import PostForm, RegistrationForm
 
 app = Flask(__name__)
-
+bcrypt = Bcrypt(app)
 
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -36,6 +40,35 @@ class Posts(db.Model):
             ]
         )
 
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(500), nullable=False, unique=True)
+    password = db.Column(db.String(500), nullable=False)
+
+    def __repr__(self):
+        return ''.join(
+            ['UserID: ', str(self.id), '\r\n', 'Email: ', self.email]
+        )
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hash_pw = bcrypt.generate_password_hash(form.password.data)
+
+        user = Users(email=form.email.data, password=hash_pw)
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('post'))
+    return render_template('register.html', title='Register', form=form)
+
+def validate_email(self, email):
+    user = Users.query.filter_by(email=email.data).first()
+
+    if user:
+        raise ValidationError('Email already in use')
 
 @app.route('/')
 @app.route('/home')
