@@ -12,8 +12,16 @@
 {#    MAKE SEPARATE CSS FILE#}
     <style>
 
-        body {
-            margin: 0 50px;
+        h1 {
+            margin: 10px 30px 20px;
+        }
+
+        h3 {
+            margin: 0 30px;
+        }
+
+        p {
+            margin: 0 30px 15px;
         }
 
         nav a {
@@ -36,7 +44,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="nav-link active" href="{{ url_for('home') }}"> Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ url_for('home') }}"> Home </a>
         <a class="nav-link" href="{{ url_for('add') }}"> Add </a>
         <a class="nav-link" href="{{ url_for('about') }}"> About </a>
         <a class="nav-link" href="{{ url_for('create') }}"> Create </a>
