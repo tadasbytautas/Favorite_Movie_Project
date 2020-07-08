@@ -7,7 +7,6 @@
             <div class="form-group">
                 {{ form.userID.label }}
                 {{ form.userID }}
-
                 {% if form.userID.errors %}
                     <div class="error">
                     {% for error in form.userID.errors %}
@@ -21,7 +20,6 @@
             <div class="form-group">
                 {{ form.title.label }}
                 {{ form.title }}
-
                 {% if form.title.errors %}
                     <div class="error">
                     {% for error in form.title.errors %}

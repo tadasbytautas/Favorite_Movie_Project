@@ -1,14 +1,20 @@
 from os import environ
 
-from flask import url_for, redirect, render_template, Flask
+from flask import Flask
+from flask import render_template, redirect, url_for, request
 from flask_bcrypt import bcrypt, Bcrypt
+from flask_login import LoginManager
+from flask_login import login_user, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from wtforms import ValidationError
 
+from forms import LoginForm
 from forms import PostForm, RegistrationForm
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -40,6 +46,10 @@ class Posts(db.Model):
             ]
         )
 
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(500), nullable=False, unique=True)
@@ -49,12 +59,6 @@ class Users(db.Model):
         return ''.join(
             ['UserID: ', str(self.id), '\r\n', 'Email: ', self.email]
         )
-
-def validate_email(self, email):
-    user = Users.query.filter_by(email=email.data).first()
-
-    if user:
-        raise ValidationError('Email already in use')
 
 @app.route('/')
 @app.route('/home')
@@ -67,6 +71,7 @@ def about():
     return render_template('about.html', title='About')
 
 @app.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
     form = PostForm()
     if form.validate_on_submit():
@@ -81,6 +86,7 @@ def add():
     else:
         return render_template('post.html', title='Add a post', form=form)
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -92,8 +98,35 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('post'))
+        return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
+def validate_email(self, email):
+    user = Users.query.filter_by(email=email.data).first()
+
+    if user:
+        raise ValidationError('Email already in use')
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user=Users.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('add')
+            if next_page:
+                return redirect(next_page)
+            else:
+                return redirect(url_for('home'))
+    return render_template('login.html', title='Login', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/create')
 def create():
@@ -105,13 +138,12 @@ def create():
     db.session.commit()
     return redirect(url_for('home'))
 
+
 @app.route('/delete')
 def delete():
-    # db.drop_all()  # drops all the schemas
     db.session.query(Posts).delete()  # deletes the contents of the table
     db.session.commit()
     return redirect(url_for('home'))
-    # return "everything is gone woops soz"
 
 
 if __name__ == '__main__':

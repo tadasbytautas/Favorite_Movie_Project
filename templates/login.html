@@ -1,8 +1,8 @@
 {% extends 'layout.html' %}
 
 {% block body_content %}
-    <h1>Register Page</h1>
-    <p>Need an account? Sign up</p>
+    <h1>Login Page</h1>
+    <p></p>
     <div class='form'>
         <form method='POST' action=''>
             {{ form.hidden_tag() }}
@@ -31,11 +31,11 @@
             </div>
             <br>
             <div class='form_group'>
-                {{ form.confirm_password.label }}
-                {{ form.confirm_password }}
-                {% if form.confirm_password.errors %}
+                {{ form.remember.label }}
+                {{ form.remember }}
+                {% if form.remember.errors %}
                     <div class='error'>
-                        {% for error in form.confirm_password.errors %}
+                        {% for error in form.remember.errors %}
                             <span>{{ error }}</span>
                         {% endfor %}
                     </div>
