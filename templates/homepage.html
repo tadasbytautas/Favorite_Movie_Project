@@ -6,8 +6,7 @@
     {% for post in posts %}
         <div>
             <h3>{{ post.title }}</h3>
-            <p><b>First Name: </b> {{ post.f_name }}</p>
-            <p><b>Last Name: </b> {{ post.l_name }}</p>
+            <p><b>First Name: </b> {{ post.userID }}</p>
             <p>{{ post.content }}</p>
         </div>
     {% endfor %}

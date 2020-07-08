@@ -1,35 +1,22 @@
 {% extends "layout.html" %}
 
-{% block body_content %}
+{% block body_content%}
     <div class="form">
         <form method="post" action="">
             {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.f_name.label }}
-                {{ form.f_name }}
+                {{ form.userID.label }}
+                {{ form.userID }}
 
-                {% if form.f_name.errors %}
+                {% if form.userID.errors %}
                     <div class="error">
-                    {% for error in form.f_name.errors %}
+                    {% for error in form.userID.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
                     </div>
                 {% endif %}
             </div>
 
-            <br>
-            <div class="form-group">
-                {{ form.l_name.label }}
-                {{ form.l_name }}
-
-                {% if form.l_name.errors %}
-                    <div class="error">
-                    {% for error in form.l_name.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
             <br>
             <div class="form-group">
                 {{ form.title.label }}

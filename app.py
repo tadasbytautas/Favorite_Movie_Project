@@ -21,19 +21,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + \
 
 db = SQLAlchemy(app)
 
-
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    f_name = db.Column(db.String(30), nullable=False)
-    l_name = db.Column(db.String(30), nullable=False)
+    userID = db.Column(db.String(30), nullable=False)
     title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.String(300), nullable=False, unique=True)
+    content = db.Column(db.String(1000), nullable=False)
 
     def __repr__(self):
         return ''.join(
             [
                 'Title: ' + self.title + '\n'
-                'Name: ' + self.f_name + ' ' + self.l_name + '\n'
+                'Name: ' + self.userID + '\n'
                 'Content: ' + self.content
             ]
         )
@@ -54,8 +52,7 @@ def add():
     form = PostForm()
     if form.validate_on_submit():
         post_data = Posts(
-            f_name=form.f_name.data,
-            l_name=form.l_name.data,
+            userID=form.userID.data,
             title=form.title.data,
             content=form.content.data
         )
@@ -68,12 +65,12 @@ def add():
 @app.route('/create')
 def create():
     db.create_all()
-    post = Posts(f_name='Tadas', l_name='Bytautas', title='Mr', content="whatevs")
-    post2 = Posts(f_name='Marija', l_name='SuperPuper', title='Mrs', content="blah")
+    post = Posts(userID='Tadas', title='The Shawshank Redemption (1994)', content="Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red. Written by J-S-Golden")
+    post2 = Posts(userID='Marija', title='The Dark Knight (2008)', content="Set within a year after the events of Batman Begins (2005), Batman, Lieutenant James Gordon, and new District Attorney Harvey Dent successfully begin to round up the criminals that plague Gotham City, until a mysterious and sadistic criminal mastermind known only as \"The Joker\" appears in Gotham, creating a new wave of chaos. Batman's struggle against The Joker becomes deeply personal, forcing him to \"confront everything he believes\" and improve his technology to stop him. A love triangle develops between Bruce Wayne, Dent, and Rachel Dawes. Written by Leon Lombardi")
     db.session.add(post)
     db.session.add(post2)
     db.session.commit()
-    return "Added the table and populated it with some records"
+    return redirect(url_for('home'))
 
 @app.route('/delete')
 def delete():

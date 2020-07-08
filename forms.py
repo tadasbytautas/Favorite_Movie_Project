@@ -4,16 +4,8 @@ from wtforms.validators import DataRequired, Length
 
 
 class PostForm(FlaskForm):
-    f_name = StringField(
-        'First Name',
-        validators=[
-            DataRequired(),
-            Length(min=1, max=30)
-        ]
-    )
-
-    l_name = StringField(
-        'Last Name',
+    userID = StringField(
+        'User: ',
         validators=[
             DataRequired(),
             Length(min=1, max=30)
@@ -21,7 +13,7 @@ class PostForm(FlaskForm):
     )
 
     title = StringField(
-        'Title',
+        'Movie Title: ',
         validators=[
             DataRequired(),
             Length(min=4, max=100)
@@ -29,7 +21,7 @@ class PostForm(FlaskForm):
     )
 
     content = StringField(
-        'Content',
+        'Movie Description: ',
         validators=[
             DataRequired(),
             Length(min=4, max=300)
