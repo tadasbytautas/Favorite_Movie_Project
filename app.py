@@ -125,7 +125,6 @@ def register():
     return render_template('register.html', title='Register', form=form)
 def validate_email(self, email):
     user = Users.query.filter_by(email=email.data).first()
-
     if user:
         raise ValidationError('Email already in use')
 
@@ -183,6 +182,18 @@ def account():
         form.email.data = current_user.email
     return render_template('account.html', title='Account', form=form)
 
+@app.route("/account/delete", methods=["GET", "POST"])
+@login_required
+def account_delete():
+    user = current_user.id
+    account = Users.query.filter_by(id=user).first()
+    posts = Posts.query.filter_by(user_id=user).first()
+    logout_user()
+    db.session.query(Posts.user).delete()
+
+    db.session.delete(account)
+    db.session.commit()
+    return redirect(url_for('register'))
 
 if __name__ == '__main__':
     app.run()

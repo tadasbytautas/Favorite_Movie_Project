@@ -43,6 +43,10 @@
             <div class='form_group'>
                 {{ form.submit }}
             </div>
+            <br>
+        </form>
+        <form action="{{ url_for('account_delete') }}">
+            <button type="submit">Delete your account</button>
         </form>
     </div>
 {% endblock %}

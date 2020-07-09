@@ -37,7 +37,7 @@
         }
 
         .ss {
-            color: gold;
+            color: red;
         }
 
         .form {
@@ -58,20 +58,22 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
         <a class="nav-link" href="{{ url_for('home') }}"> HOME </a>
-        <a class="nav-link" href="{{ url_for('add') }}"> ADD MOVIE </a>
+
         <a class="nav-link" href="{{ url_for('about') }}"> ABOUT </a>
-{#        <a class="nav-link" href="{{ url_for('create') }}"> CREATE - <span>(dummy data)</span> </a>#}
-{#        <a class="nav-link" href="{{ url_for('delete') }}"> DELETE - <span>(all data)</span></a>#}
+
         {% if current_user.is_authenticated == True %}
+            <a class="nav-link" href="{{ url_for('add') }}"> ADD MOVIE </a>
             <a class="nav-link acc" href="{{ url_for('account') }}"> ACCOUNT </a>
             <a class="nav-link acc" href="{{ url_for('logout') }}"> LOGOUT </a>
             <a class="nav-link acc" href="{{ url_for('account') }}"> Greetings {{ current_user.first_name }} </a>
-
+            <a class="nav-link ss" href="{{ url_for('account_delete') }}"> DELETE ACCOUNT </a>
         {% else %}
             <a class="nav-link acc" href="{{ url_for('register') }}"> REGISTER </a>
             <a class="nav-link acc" href="{{ url_for('login') }}"> LOGIN </a>
         {% endif %}
+
     </nav>
     {% block body_content %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
