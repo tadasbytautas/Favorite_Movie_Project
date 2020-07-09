@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from wtforms import ValidationError
 from datetime import datetime
 
-from forms import LoginForm
+from forms import LoginForm, UpdateAccountForm
 from forms import PostForm, RegistrationForm
 
 app = Flask(__name__)
@@ -151,21 +151,37 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route('/create')
-def create():
-    db.create_all()
-    post = Posts(first_name='Tadas', last_name="B", title='The Shawshank Redemption (1994)', content="Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red. Written by J-S-Golden")
-    post2 = Posts(first_name='Marija', last_name="B", title='The Dark Knight (2008)', content="Set within a year after the events of Batman Begins (2005), Batman, Lieutenant James Gordon, and new District Attorney Harvey Dent successfully begin to round up the criminals that plague Gotham City, until a mysterious and sadistic criminal mastermind known only as \"The Joker\" appears in Gotham, creating a new wave of chaos. Batman's struggle against The Joker becomes deeply personal, forcing him to \"confront everything he believes\" and improve his technology to stop him. A love triangle develops between Bruce Wayne, Dent, and Rachel Dawes. Written by Leon Lombardi")
-    db.session.add(post)
-    db.session.add(post2)
-    db.session.commit()
-    return redirect(url_for('home'))
+# @app.route('/create')
+# def create():
+#     db.create_all()
+#     post = Posts(first_name='Tadas', last_name="B", title='The Shawshank Redemption (1994)', content="Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red. Written by J-S-Golden")
+#     post2 = Posts(first_name='Marija', last_name="B", title='The Dark Knight (2008)', content="Set within a year after the events of Batman Begins (2005), Batman, Lieutenant James Gordon, and new District Attorney Harvey Dent successfully begin to round up the criminals that plague Gotham City, until a mysterious and sadistic criminal mastermind known only as \"The Joker\" appears in Gotham, creating a new wave of chaos. Batman's struggle against The Joker becomes deeply personal, forcing him to \"confront everything he believes\" and improve his technology to stop him. A love triangle develops between Bruce Wayne, Dent, and Rachel Dawes. Written by Leon Lombardi")
+#     db.session.add(post)
+#     db.session.add(post2)
+#     db.session.commit()
+#     return redirect(url_for('home'))
+#
+# @app.route('/delete')
+# def delete():
+#     db.session.query(Posts).delete()  # deletes the contents of the table
+#     db.session.commit()
+#     return redirect(url_for('home'))
 
-@app.route('/delete')
-def delete():
-    db.session.query(Posts).delete()  # deletes the contents of the table
-    db.session.commit()
-    return redirect(url_for('home'))
+@app.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.email = form.email.data
+        db.session.commit()
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.email.data = current_user.email
+    return render_template('account.html', title='Account', form=form)
 
 
 if __name__ == '__main__':
