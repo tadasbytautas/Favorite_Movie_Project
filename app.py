@@ -108,6 +108,7 @@ def register():
         return redirect(url_for('home'))
 
     form = RegistrationForm()
+
     if form.validate_on_submit():
         hash_pw = bcrypt.generate_password_hash(form.password.data)
 
@@ -121,12 +122,8 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
-def validate_email(self, email):
-    user = Users.query.filter_by(email=email.data).first()
-    if user:
-        raise ValidationError('Email already in use')
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -187,10 +184,12 @@ def account():
 def account_delete():
     user = current_user.id
     account = Users.query.filter_by(id=user).first()
-    posts = Posts.query.filter_by(user_id=user).first()
-    logout_user()
-    db.session.query(Posts.user).delete()
+    posts = Posts.query.filter_by(user_id=user).all()
 
+    logout_user()
+    db.session.query(Posts.).delete()
+    # db.session.query(Posts.user_id==user).delete()
+    # db.session.delete(posts)
     db.session.delete(account)
     db.session.commit()
     return redirect(url_for('register'))
