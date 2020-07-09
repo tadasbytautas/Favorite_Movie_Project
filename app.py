@@ -182,16 +182,12 @@ def account():
 @app.route("/account/delete", methods=["GET", "POST"])
 @login_required
 def account_delete():
-    user = current_user.id
-    account = Users.query.filter_by(id=user).first()
-    posts = Posts.query.filter_by(user_id=user).all()
-
-    logout_user()
-    db.session.query(Posts.).delete()
-    # db.session.query(Posts.user_id==user).delete()
-    # db.session.delete(posts)
+    data = Posts.__table__.delete().where(Posts.user_id == current_user.id)
+    account = Users.query.filter_by(id=current_user.id).first()
+    db.session.execute(data)
     db.session.delete(account)
     db.session.commit()
+    logout_user()
     return redirect(url_for('register'))
 
 if __name__ == '__main__':
