@@ -6,7 +6,8 @@
     {% for post in posts %}
         <div>
             <h3>{{ post.title }}</h3>
-            <p><b>User: </b> {{ post.userID }}</p>
+            <span>by <i>{{ post.author.first_name }} {{ post.author.last_name }}</i></span>
+            <span>on the <i>{{ post.date_posted }}</i></span>
             <p>{{ post.content }}</p>
         </div>
     {% endfor %}

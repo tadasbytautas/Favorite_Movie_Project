@@ -1,49 +1,36 @@
 {% extends "layout.html" %}
+{% block body_content %}
+<div class="form">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<div class="form-group">
+			{{ form.title.label }}
+			{{ form.title }}
+			{% if form.title.errors %}
+			<div class="error">
+				{% for error in form.title.errors %}
+				    <span>{{ error }}</span>
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+		<br>
+		<div class="form-group">
+			{{ form.content.label }}
+			{{ form.content }}
+			{% if form.content.errors %}
+			<div class="error">
+				{% for error in form.content.errors %}
+				    <span>{{ error }}</span>
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+		<br>
+		<div class="form-group">
+		    {{ form.submit }}
+		</div>
+	</form>
+</div>
+{% endblock body_content %}
 
-{% block body_content%}
-    <div class="form">
-        <form method="post" action="">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.userID.label }}
-                {{ form.userID }}
-                {% if form.userID.errors %}
-                    <div class="error">
-                    {% for error in form.userID.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-
-            <br>
-            <div class="form-group">
-                {{ form.title.label }}
-                {{ form.title }}
-                {% if form.title.errors %}
-                    <div class="error">
-                    {% for error in form.title.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-                {% endif %}
-
-            </div>
-            <br>
-            <div class="form-group">
-                {{ form.content.label }}
-                {{ form.content }}
-
-                {% if form.content.errors %}
-                    <div class="error">
-                    {% for error in form.content.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-            <br>
-            {{ form.submit }}
-        </form>
-    </div>
-{% endblock %}

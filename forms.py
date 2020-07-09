@@ -3,14 +3,6 @@ from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 class PostForm(FlaskForm):
-    userID = StringField(
-        'UserID: ',
-        validators=[
-            DataRequired(),
-            Length(min=1, max=30)
-        ]
-    )
-
     title = StringField(
         'Movie Title: ',
         validators=[
@@ -30,6 +22,16 @@ class PostForm(FlaskForm):
     submit = SubmitField('Make a Post')
 
 class RegistrationForm(FlaskForm):
+    first_name = StringField('First Name',
+         validators=[
+             DataRequired(),
+             Length(min=2, max=30)
+         ])
+    last_name = StringField('Last Name',
+        validators=[
+            DataRequired(),
+            Length(min=3, max=30)
+        ])
     email = StringField('Email',
         validators = [
             DataRequired(),
