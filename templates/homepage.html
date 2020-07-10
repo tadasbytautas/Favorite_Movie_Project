@@ -10,9 +10,8 @@
             <span>on the <i>{{ post.date_posted }}</i></span>
             <p>{{ post.content }}</p>
             {% if current_user.id == post.user_id %}
-                <a href="{{ url_for('post_delete', remove=post.id)}}"><button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('This will remove the post! Continue?')">Delete</button></a>
                 <a href="{{ url_for('post_update', remove=post.id)}}"><button class="btn btn-outline-warning btn-sm" type="submit">Update</button></a>
-
+                <a href="{{ url_for('post_delete', remove=post.id)}}"><button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('This will remove the post! Continue?')">Delete</button></a>
             {% endif %}
 
         </div>
