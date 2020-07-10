@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body_content %}
-    <h1>Update Details</h1>
+    <h1>Update Account Details</h1>
     <div class='form'>
         <form method='POST' action=''>
             {{ form.hidden_tag() }}
@@ -46,7 +46,7 @@
             <br>
         </form>
         <form action="{{ url_for('account_delete') }}">
-            <button type="submit">Delete your account</button>
+            <button type="submit" onclick="return confirm('Deleting Account will remove ALL the posts you made, continue?')">Delete your account</button>
         </form>
     </div>
 {% endblock %}

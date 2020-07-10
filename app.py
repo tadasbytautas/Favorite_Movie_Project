@@ -99,7 +99,7 @@ def add():
         db.session.commit()
         return redirect(url_for('home'))
     else:
-        return render_template('post.html', title='Add a post', form=form)
+        return render_template('post.html', title='Add a Post', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -189,6 +189,14 @@ def account_delete():
     db.session.commit()
     logout_user()
     return redirect(url_for('register'))
+
+@app.route("/post_delete/<int:remove>", methods=["GET", "POST"])
+@login_required
+def post_delete(remove):
+    post = Posts.query.filter_by(id=remove).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run()

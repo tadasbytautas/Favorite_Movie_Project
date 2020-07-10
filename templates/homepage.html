@@ -9,6 +9,12 @@
             <span>by <i>{{ post.author.first_name }} {{ post.author.last_name }}</i></span>
             <span>on the <i>{{ post.date_posted }}</i></span>
             <p>{{ post.content }}</p>
+            {% if current_user.id == post.user_id %}
+                <form action="{{ url_for('post_delete', remove=post.id)}}">
+    {#                <button class="btn btn-outline-success btn-sm" type="submit">Update</button>#}
+                    <button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('This will remove the post! Continue?')">Delete</button>
+                </form>
+            {% endif %}
         </div>
     {% endfor %}
 

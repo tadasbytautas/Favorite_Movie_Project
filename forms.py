@@ -11,15 +11,15 @@ class PostForm(FlaskForm):
         'Movie Title: ',
         validators=[
             DataRequired(),
-            Length(min=4, max=100)
+            Length(min=1, max=100)
         ]
     )
 
     content = StringField(
-        'Movie Description: ',
+        'Movie Storyline: ',
         validators=[
             DataRequired(),
-            Length(min=4, max=300)
+            Length(min=1, max=1000)
         ]
     )
 

@@ -44,6 +44,10 @@
             margin: 15px 30px;
         }
 
+        body {
+            {#background: black;#}
+        }
+
         label {
             margin-bottom: 0;
             margin-right: 10px;
@@ -58,21 +62,17 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
         <a class="nav-link" href="{{ url_for('home') }}"> HOME </a>
-
-        <a class="nav-link" href="{{ url_for('about') }}"> ABOUT </a>
-
         {% if current_user.is_authenticated == True %}
             <a class="nav-link" href="{{ url_for('add') }}"> ADD MOVIE </a>
             <a class="nav-link acc" href="{{ url_for('account') }}"> ACCOUNT </a>
             <a class="nav-link acc" href="{{ url_for('logout') }}"> LOGOUT </a>
             <a class="nav-link acc" href="{{ url_for('account') }}"> Greetings {{ current_user.first_name }} </a>
-            <a class="nav-link ss" href="{{ url_for('account_delete') }}"> DELETE ACCOUNT </a>
         {% else %}
             <a class="nav-link acc" href="{{ url_for('register') }}"> REGISTER </a>
             <a class="nav-link acc" href="{{ url_for('login') }}"> LOGIN </a>
         {% endif %}
+        <a class="nav-link" href="{{ url_for('about') }}"> ABOUT </a>
 
     </nav>
     {% block body_content %}{% endblock %}
