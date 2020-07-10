@@ -29,9 +29,7 @@
                 {% endif %}
             </div>
             <br>
-        </form>
-        <form action="{{ url_for('post_update') }}">
-            <button type="submit">Update</button>
+        {{ form.submit }}
         </form>
     </div>
 {% endblock %}

@@ -41,7 +41,7 @@ class Posts(db.Model):
 
     def __repr__(self):
         return ''.join([
-            'User ID: ', self.user_id, '\r\n',
+            'User ID: ', str(self.user_id), '\r\n',
             'Title: ', self.title, '\r\n', self.content
         ])
 
@@ -154,19 +154,28 @@ def account():
         form.email.data = current_user.email
     return render_template('account.html', title='Account', form=form)
 
-@app.route('/post_update')
+@app.route('/post_update/<int:update>', methods=['GET', 'POST'])
 @login_required
-def post_update():
+def post_update(update):
     form = UpdatePostDetails()
+    postupdate = Posts.query.filter_by(id=update).first()
     if form.validate_on_submit():
-        current_user.title = form.title.data
-        current_user.content = form.content.data
+        postupdate.title = form.title.data
+        postupdate.content = form.content.data
         db.session.commit()
         return redirect(url_for('home'))
     elif request.method == 'GET':
-        form.title.data = Posts.title
-        form.content.data = Posts.content
+        form.title.data = postupdate.title
+        form.content.data = postupdate.content
     return render_template('postedit.html', title='Edit Post', form=form)
+
+@app.route("/post_delete/<int:remove>", methods=["GET", "POST"])
+@login_required
+def post_delete(remove):
+    post = Posts.query.filter_by(id=remove).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 @app.route("/account/delete", methods=["GET", "POST"])
 @login_required
@@ -179,13 +188,7 @@ def account_delete():
     logout_user()
     return redirect(url_for('register'))
 
-@app.route("/post_delete/<int:remove>", methods=["GET", "POST"])
-@login_required
-def post_delete(remove):
-    post = Posts.query.filter_by(id=remove).first()
-    db.session.delete(post)
-    db.session.commit()
-    return redirect(url_for('home'))
+
 
 # @app.route("/post_update", methods=["GET", "POST"])
 # @login_required
