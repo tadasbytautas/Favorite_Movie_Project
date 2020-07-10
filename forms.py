@@ -90,8 +90,21 @@ class UpdateAccountForm(FlaskForm):
         ])
     submit = SubmitField('Update')
 
-    def validate_email(self,email):
-        if email.data != current_user.email:
-            user = Users.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('Email already in use')
+class UpdatePostDetails(FlaskForm):
+    title = StringField(
+        'Movie Title: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=100)
+        ]
+    )
+
+    content = StringField(
+        'Movie Storyline: ',
+        validators=[
+            DataRequired(),
+            Length(min=1, max=1000)
+        ]
+    )
+
+    submit = SubmitField('Update')

@@ -6,10 +6,10 @@ from flask_bcrypt import bcrypt, Bcrypt
 from flask_login import LoginManager, UserMixin
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
-from wtforms import ValidationError
+from wtforms import ValidationError, form
 from datetime import datetime
 
-from forms import LoginForm, UpdateAccountForm
+from forms import LoginForm, UpdateAccountForm, UpdatePostDetails
 from forms import PostForm, RegistrationForm
 
 app = Flask(__name__)
@@ -49,15 +49,6 @@ class Posts(db.Model):
 def load_user(id):
     return Users.query.get(int(id))
 
-# class Users(db.Model, UserMixin):
-#     id = db.Column(db.Integer, primary_key=True)
-#     email = db.Column(db.String(500), nullable=False, unique=True)
-#     password = db.Column(db.String(500), nullable=False)
-#
-#     def __repr__(self):
-#         return ''.join(
-#             ['User: ', str(self.id), '\r\n', 'Email: ', self.email]
-#         )
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -147,22 +138,6 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-# @app.route('/create')
-# def create():
-#     db.create_all()
-#     post = Posts(first_name='Tadas', last_name="B", title='The Shawshank Redemption (1994)', content="Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red. Written by J-S-Golden")
-#     post2 = Posts(first_name='Marija', last_name="B", title='The Dark Knight (2008)', content="Set within a year after the events of Batman Begins (2005), Batman, Lieutenant James Gordon, and new District Attorney Harvey Dent successfully begin to round up the criminals that plague Gotham City, until a mysterious and sadistic criminal mastermind known only as \"The Joker\" appears in Gotham, creating a new wave of chaos. Batman's struggle against The Joker becomes deeply personal, forcing him to \"confront everything he believes\" and improve his technology to stop him. A love triangle develops between Bruce Wayne, Dent, and Rachel Dawes. Written by Leon Lombardi")
-#     db.session.add(post)
-#     db.session.add(post2)
-#     db.session.commit()
-#     return redirect(url_for('home'))
-#
-# @app.route('/delete')
-# def delete():
-#     db.session.query(Posts).delete()  # deletes the contents of the table
-#     db.session.commit()
-#     return redirect(url_for('home'))
-
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
@@ -178,6 +153,20 @@ def account():
         form.last_name.data = current_user.last_name
         form.email.data = current_user.email
     return render_template('account.html', title='Account', form=form)
+
+@app.route('/post_update')
+@login_required
+def post_update():
+    form = UpdatePostDetails()
+    if form.validate_on_submit():
+        current_user.title = form.title.data
+        current_user.content = form.content.data
+        db.session.commit()
+        return redirect(url_for('home'))
+    elif request.method == 'GET':
+        form.title.data = Posts.title
+        form.content.data = Posts.content
+    return render_template('postedit.html', title='Edit Post', form=form)
 
 @app.route("/account/delete", methods=["GET", "POST"])
 @login_required
@@ -197,6 +186,11 @@ def post_delete(remove):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for('home'))
+
+# @app.route("/post_update", methods=["GET", "POST"])
+# @login_required
+# def post_update(update):
+#
 
 if __name__ == '__main__':
     app.run()

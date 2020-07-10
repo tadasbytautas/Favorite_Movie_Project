@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block body_content %}
+    <h1>Edit Post</h1>
+    <div class='form'>
+        <form method='POST' action=''>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.title.label }}
+                {{ form.title }}
+                {% if form.title.errors %}
+                <div class="error">
+                    {% for error in form.title.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ form.content.label }}
+                {{ form.content }}
+                {% if form.content.errors %}
+                <div class="error">
+                    {% for error in form.content.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <br>
+        </form>
+        <form action="{{ url_for('post_update') }}">
+            <button type="submit">Update</button>
+        </form>
+    </div>
+{% endblock %}
