@@ -188,12 +188,5 @@ def account_delete():
     logout_user()
     return redirect(url_for('register'))
 
-
-
-# @app.route("/post_update", methods=["GET", "POST"])
-# @login_required
-# def post_update(update):
-#
-
 if __name__ == '__main__':
     app.run()
