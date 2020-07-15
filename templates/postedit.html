@@ -17,11 +17,11 @@
                 {% endif %}
             </div>
             <br>
-            <div class="form-group box">
+            <div class="form-group">
                 {{ form.content.label }}
                 {{ form.content }}
                 {% if form.content.errors %}
-                <div class="error">
+                <div class="error box">
                     {% for error in form.content.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
