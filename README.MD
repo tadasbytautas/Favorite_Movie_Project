@@ -2,7 +2,6 @@
 ## Recources
 ###### GIT: https://github.com/tadasbytautas/Favorite_Movie_Project
 ###### TRELLO: https://trello.com/b/q5yqVhCr/favorite-movie-project
-###### PROJECT: http://35.234.147.42/
 
 ## Content
 * Project Description
