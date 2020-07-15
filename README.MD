@@ -46,4 +46,4 @@ server and deployed to a cloud-based virtual machine.
 
 ## Functionality
 
-To support minimum requirements of the projects 
+Project functionality 
