@@ -57,6 +57,9 @@ Project based on CRUD, below are some user stories to support that functionality
 - As a user I should be able to login to newly registered account.
 - As a user I should be able to delete my OWN posts only. (posts made by other account should not be accessible for deletion or edits).
 
+![TRELLO](/images/Screenshot%20(3).png)
+![TRELLO](/images/Screenshot%20(4).png)
+
 ## Entity Relationship Diagram (ERD)
 
 This is simple ERD diagram to show one to many relationship between two data tables, Users and Posts made by registered accounts.
@@ -90,3 +93,11 @@ Technologies used to get Favorite Movie Project to where is it right now.
 ## Front-End Design
 
 Bootstrap 4 was used to build most of the styling. See below for screenshots of each individual page.
+
+![Web](/images/Screenshot%20(5).png)
+![Web](/images/Screenshot%20(6).png)
+![Web](/images/Screenshot%20(7).png)
+![Web](/images/Screenshot%20(8).png)
+![Web](/images/Screenshot%20(9).png)
+![Web](/images/Screenshot%20(10).png)
+![Web](/images/Screenshot%20(11).png)
