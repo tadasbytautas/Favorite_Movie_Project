@@ -45,3 +45,5 @@ Feature-Branch model which will subsequently be built through a CI
 server and deployed to a cloud-based virtual machine.
 
 ## Functionality
+
+To support minimum requirements of the projects 
