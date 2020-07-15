@@ -2,11 +2,12 @@
 ## Recources
 ###### GIT: https://github.com/tadasbytautas/Favorite_Movie_Project
 ###### TRELLO: https://trello.com/b/q5yqVhCr/favorite-movie-project
+###### PROJECT: http://35.234.147.42/
 
 ## Content
 * Project Description
 * Functionality
-* Data
+* Entity Relationship Diagram (ERD)
 * Tech Stack
 * CI Pipeline
 * Testing
@@ -46,4 +47,22 @@ server and deployed to a cloud-based virtual machine.
 
 ## Functionality
 
-Project functionality 
+Project based on CRUD, below are some user stories to support that functionality.
+
+- As a user I must to be able to see all the post made on the main board.
+- As a user I must to be able to add new movies to the main board.
+- As a user I must to be able edit my post that were made previously.
+- As a user I must to be able to delete movie from the main board.
+
+##### Additional functionality (_not required by task but nice to have_)
+
+- As a user I should be able to register new account.
+- As a user I should be able to login to newly registered account.
+- As a user I should be able to delete my OWN posts only. (posts made by other account should not be accessible for deletion or edits).
+
+## Entity Relationship Diagram (ERD)
+
+This is simple ERD diagram to show one to many relationship between two data tables, Users and Posts made by registered accounts.
+
+![ERD](/images/ERD.jpg)  
+
