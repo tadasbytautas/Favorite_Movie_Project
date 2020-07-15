@@ -9,8 +9,6 @@
 * Functionality
 * Entity Relationship Diagram (ERD)
 * Tech Stack
-* CI Pipeline
-* Testing
 * Front-End Design
 * Risk Assessment
 * Difficulties
@@ -65,4 +63,27 @@ Project based on CRUD, below are some user stories to support that functionality
 This is simple ERD diagram to show one to many relationship between two data tables, Users and Posts made by registered accounts.
 
 ![ERD](/images/ERD.jpg)  
+
+## Tech Stack
+
+Technologies used to get Favorite Movie Project to where is it right now.
+
+- Trello - Project Management
+- Git / GitHub - Version Control System
+- Google Cloud MySQL - Hosting Database
+- Google Cloud WM - Hosting Linux Ubuntu Instance
+- Nginx - Web Server 
+- Jenkins - CI functionality
+- Python 3 - Backend Functionality
+- List of Modules:
+    * Flask
+    * Jinja2
+    * Flask-SQLAlchemy
+    * SQLAlchemy
+    * pymysql
+    * WTForms
+    * Flask-WTF
+    * Flask-Bcrypt
+    * email_validator
+    * flask-login
 
