@@ -85,4 +85,8 @@ Technologies used to get Favorite Movie Project to where is it right now.
     * Flask-Bcrypt
     * email_validator
     * flask-login
+- Bootstrap 4 - Minimal Frontend Styling
 
+## Front-End Design
+
+Bootstrap 4 was used to build most of the styling. See below for screenshots of each individual page.
