@@ -20,8 +20,9 @@
             <div class="form-group">
                 {{ form.content.label }}
                 {{ form.content }}
+                <div class="box"></div>
                 {% if form.content.errors %}
-                <div class="error box">
+                <div class="error">
                     {% for error in form.content.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
