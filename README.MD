@@ -1,4 +1,5 @@
 # The Favorite Movie Project
+###### by Tadas Bytautas
 ## Recources
 ###### GIT: https://github.com/tadasbytautas/Favorite_Movie_Project
 ###### TRELLO: https://trello.com/b/q5yqVhCr/favorite-movie-project
@@ -13,7 +14,6 @@
 * Difficulties
 * Ongoing Issues
 * Future Improvements
-* Authors
 
 ## Project Description
 
@@ -105,3 +105,22 @@ Bootstrap 4 was used to build most of the styling. See below for screenshots of 
 ## Risk Assessment
 
 ![Risk](/images/risk.jpg)
+
+## Difficulties 
+
+Initial idea was to have thumbnails of movie covers next to the posts when user post new blog post which supposed to be done automatically when including image url. However while trying to achieve that application become too complicated and difficult to maintain, sometimes causing database go haywire. Eventually I had this functionality removed all together.
+
+## Ongoing Issues
+
+No issues found, saying that no rigorous testing were done.
+
+## Future Improvements 
+
+- Search option would be nice to have.
+- Ability to filter all the posts done by same user.
+- Ability to comment on other users posts.
+- Website Logo.
+- Add Movie names to new posts that were already been submitted.
+
+ 
+
