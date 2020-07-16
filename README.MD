@@ -101,3 +101,7 @@ Bootstrap 4 was used to build most of the styling. See below for screenshots of 
 ![Web](/images/Screenshot%20(9).png)
 ![Web](/images/Screenshot%20(10).png)
 ![Web](/images/Screenshot%20(11).png)
+
+## Risk Assessment
+
+![Risk](/images/risk.jpg)
