@@ -92,7 +92,12 @@ Technologies used to get Favorite Movie Project to where is it right now.
 
 ## Front-End Design
 
-Bootstrap 4 was used to build most of the styling. See below for screenshots of each individual page.
+Initial design was completely different. Over time project evolved and changed significantly. 
+
+![wireframe](/images/Screenshot%20(13).png)
+![wireframe](/images/Screenshot%20(14).png)
+
+Bootstrap 4 was used to build most of the new styling. See below for screenshots of each individual page.
 
 ![Web](/images/Screenshot%20(5).png)
 ![Web](/images/Screenshot%20(6).png)
