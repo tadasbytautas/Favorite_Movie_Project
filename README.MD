@@ -121,6 +121,7 @@ No issues found, saying that no rigorous testing were done.
 - Ability to comment on other users posts.
 - Website Logo.
 - Add Movie names to new posts that were already been submitted.
+- Editing Posts could be better styled. Currently its not very user friendly.
 
  
 
